@@ -1,0 +1,116 @@
+import os
+
+# Path to the dataset (adjust this path based on your dataset location)
+data_path = '../input/yoga-82/train/'  # Or the valid directory if using validation data
+
+# Get class (folder) names
+classes = [cls for cls in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, cls))]
+print(f"Total Classes: {len(classes)}")
+import os
+from PIL import Image
+import matplotlib.pyplot as plt
+
+# Define dataset path
+data_path = '../input/yoga-82/train/'  # Adjust based on your dataset location
+
+# Get class (folder) names
+classes = [cls for cls in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, cls))]
+print(f"Total Classes: {len(classes)}")
+
+# Display all classes with their corresponding numbers
+print("Available Yoga Asanas:")
+for idx, class_name in enumerate(classes):
+    print(f"{idx}: {class_name}")
+
+# Ask the user to select a class by entering its number
+selected_class_index = int(input("\nEnter the number corresponding to the class you want to view: "))
+if selected_class_index < 0 or selected_class_index >= len(classes):
+    print("Invalid selection! Please run the code again and choose a valid class number.")
+else:
+    # Get the selected class name
+    selected_class = classes[selected_class_index]
+    print(f"\nYou selected: {selected_class}")
+ # Path for the selected class
+    selected_class_path = os.path.join(data_path, selected_class)
+
+    # Filter only valid image files
+    sample_images = [img for img in os.listdir(selected_class_path) if img.endswith(('.jpg', '.jpeg', '.png'))][:5]
+
+    # Handle cases where no images are found
+    if len(sample_images) == 0:
+        print(f"No images found for class: {selected_class}")
+    else:
+        # Display images for the selected class
+        print(f"Displaying images for {selected_class}:")
+        plt.figure(figsize=(15, 5))
+        for i, img_name in enumerate(sample_images):
+            img_path = os.path.join(selected_class_path, img_name)
+            img = Image.open(img_path)
+            plt.subplot(1, 5, i + 1)
+            plt.imshow(img)
+            plt.axis('off')
+        plt.suptitle(selected_class, fontsize=16)
+        plt.show()
+
+
+#this is for selectig codes continuosly from which we need to till which we need
+import os
+from PIL import Image
+import matplotlib.pyplot as plt
+
+# Define dataset path
+data_path = '../input/yoga-82/train/'  # Adjust based on your dataset location
+
+# Get class (folder) names
+classes = [cls for cls in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, cls))]
+print(f"Total Classes: {len(classes)}")
+
+# Display all classes with their corresponding numbers
+print("Available Yoga Asanas:")
+for idx, class_name in enumerate(classes):
+    print(f"{idx}: {class_name}")
+
+# Ask the user for input: single number or range (e.g., "1" or "1-5")
+user_input = input("\nEnter the asana number or range (e.g., '3' or '1-5'): ")
+
+# Parse user input
+if "-" in user_input:
+    # Range input: Split and convert to integers
+    start, end = map(int, user_input.split('-'))
+    selected_indices = range(start, end + 1)
+else:
+    # Single input: Convert to integer
+    selected_indices = [int(user_input)]
+
+# Validate and display images for selected asanas
+for selected_class_index in selected_indices:
+    if selected_class_index < 0 or selected_class_index >= len(classes):
+        print(f"Invalid class number: {selected_class_index}. Skipping...")
+        continue
+
+    # Get the selected class name
+    selected_class = classes[selected_class_index]
+    print(f"\nYou selected: {selected_class}")
+
+    # Path for the selected class
+    selected_class_path = os.path.join(data_path, selected_class)
+
+    # Filter only valid image files
+    sample_images = [img for img in os.listdir(selected_class_path) if img.endswith(('.jpg', '.jpeg', '.png'))][:5]
+
+    # Handle cases where no images are found
+    if len(sample_images) == 0:
+        print(f"No images found for class: {selected_class}")
+    else:
+        # Display images for the selected class
+        print(f"Displaying images for {selected_class}:")
+        plt.figure(figsize=(15, 5))
+        for i, img_name in enumerate(sample_images):
+            img_path = os.path.join(selected_class_path, img_name)
+            img = Image.open(img_path)
+            plt.subplot(1, 5, i + 1)
+            plt.imshow(img)
+            plt.axis('off')
+        plt.suptitle(selected_class, fontsize=16)
+        plt.show()
+
